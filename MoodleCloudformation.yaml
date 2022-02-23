@@ -27,7 +27,7 @@ Metadata:
       parent: e732e619-42d6-4964-9cd1-d9352ec86d36
       embeds:
         - 7fdeda41-daaf-4a1b-8e47-09ada9bd6d90
-        - 64a07bc6-def2-4069-b454-6f7910ee2485
+        - 64a07bc6-def2-4069-b454-6f79     10ee2485
         - a659fd2a-41b4-4fb4-8f44-9a9071218890
         - 1aaf0707-2e79-440e-a622-783fc2f38957
         - 27785961-dbf9-4524-b561-c654ea9838e9
@@ -546,7 +546,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: '22'
           ToPort: '22'
-          CidrIp: 
+          CidrIp: 102.65.55.151
       VpcId: !Ref MoodleVPC
     Metadata:
       'AWS::CloudFormation::Designer':
