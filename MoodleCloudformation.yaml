@@ -546,6 +546,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: '22'
           ToPort: '22'
+          CidrIp: 
       VpcId: !Ref MoodleVPC
     Metadata:
       'AWS::CloudFormation::Designer':
