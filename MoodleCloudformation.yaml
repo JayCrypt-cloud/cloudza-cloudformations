@@ -571,6 +571,33 @@ Resources:
         - SubnetId: !Ref ApplicationSubnet
       SecurityGroupIds:
         - !Ref EC2SG3NV3A
+    UserData:"#!/bin/bash
+                yum update -y
+                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                unzip awscliv2.zip
+                sudo ./aws/install
+                sudo amazon-linux-extras enable php7.4
+                sudo yum clean metadata
+                sudo amazon-linux-extras install -y lamp-mariadb php7.4 
+                sudo yum install -y php-cli php-pdo php-fpm php-json php-mysqlnd php-xml php-mbstring php-gd
+                sudo yum install -y php-intl php-soap php-sodium php-xmlrpc php-opcache
+                sudo service php-fpm restart
+                sudo yum install -y httpd mariadb-client
+                sudo yum install -y git 
+                export RDSHOST="moodle-1.cumlol5wh4rn.af-south-1.rds.amazonaws.com"
+                export TOKEN="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 3306 --region af-south-1 --username admin )"
+                sudo mysql -u admin -p$TOKEN -e  "CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* TO 'moodleuser'@'%' IDENTIFIED BY 'dbpassword';"
+                sudo systemctl start httpd
+                sudo systemctl enable httpd
+                sudo usermod -a -G apache ec2-user
+                sudo chown -R ec2-user:apache /var/www
+                sudo chmod 2775 /var/www
+                mkdir /var/www/moodledata
+                aws s3 mb s3://moodlejon
+                git clone -b MOODLE_311_STABLE git://git.moodle.org/moodle.git /var/www/html/
+                find /var/www -type d -exec sudo chmod 2775 {} \;
+                find /var/www -type f -exec sudo chmod 0664 {} \;
+                echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php"
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 1aaf0707-2e79-440e-a622-783fc2f38957
