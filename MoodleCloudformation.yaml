@@ -8,7 +8,7 @@ Metadata:
       position:
         x: 110
         'y': 270
-      z: 0
+      z: 0    
       embeds:
         - b099bd27-4ae2-4dd6-af09-73921277f565
         - 7423d5d8-d22f-4188-af72-645f2a403a81
@@ -541,8 +541,11 @@ Resources:
           FromPort: '80'
           ToPort: '80'
         - IpProtocol: tcp
-          FromPort: '80'
-          ToPort: '80'
+          FromPort: '443'
+          ToPort: '443'
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
       VpcId: !Ref MoodleVPC
     Metadata:
       'AWS::CloudFormation::Designer':
